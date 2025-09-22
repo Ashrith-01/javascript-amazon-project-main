@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
 
 let productsHTML = '';
@@ -63,22 +63,8 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     const productId = button.dataset.productId;
 
     let selectedQuantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
-    let matchItem;
-    cart.forEach((item) => {
-      if(item.productId === productId) {
-        matchItem = item;
-      }
-    });
-    if(matchItem){
-      matchItem.quantity = selectedQuantity;
-    }
-    else{
-      cart.push({
-        productId: productId,
-        quantity: selectedQuantity
-      });
-    }
-
+    
+    addToCart(productId, selectedQuantity);
     let cartQuantity = 0;
     cart.forEach((item) => {
       cartQuantity += item.quantity;
